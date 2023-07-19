@@ -16,6 +16,7 @@ ARG VERBOSE=false
 ARG OPENJ9_SCC=true
 ARG OPENJ9_JAVA_OPTIONS=""
 ARG CONSOLE_FORMAT="simple"
+ARG CHECKPOINT_TYPE="beforeAppStart"
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
 LABEL \
@@ -42,11 +43,8 @@ COPY --chown=default:root target/liberty/wlp/usr/servers/reactive-service-b/jvm.
 COPY --chown=default:root target/liberty/wlp/usr/servers/reactive-service-b/bootstrap.properties /config/bootstrap.properties
 COPY --chown=default:root target/reactive-service-b.war /config/apps
 
-USER root
-RUN dnf install -y iptables
-USER 1001
-
 ENV WLP_LOGGING_CONSOLE_FORMAT=${CONSOLE_FORMAT}
 
 # This script will add the requested XML snippets, grow image to be fit-for-purpose and apply interim fixes
 RUN configure.sh
+RUN checkpoint.sh ${CHECKPOINT_TYPE}

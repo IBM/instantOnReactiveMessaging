@@ -12,8 +12,15 @@
   <properties>
     <openliberty.maven.version>3.7.1</openliberty.maven.version>
     <openliberty.version>23.0.0.6</openliberty.version>
-    <!-- https://openliberty.io/docs/latest/instanton.html#beforeAppStart -->
-    <checkpoint.type>afterAppStart</checkpoint.type>
+    <!--
+      "the following application code scenarios must be avoided before an
+       InstantOn checkpoint, and are therefore better suited for the
+       beforeAppStart option: [...]
+       Reading configuration that is expected to change when the application
+       is deployed, for example configuration from MicroProfile Config."
+      https://openliberty.io/docs/latest/instanton.html#beforeAppStart
+    -->
+    <checkpoint.type>beforeAppStart</checkpoint.type>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

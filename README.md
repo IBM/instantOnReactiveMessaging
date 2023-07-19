@@ -59,6 +59,7 @@
   ```
   -Dimage.builder.arguments="--platform linux/amd64"
   ```
+* Using this `afterAppStart` approach requires connecting to Kafka during the build; however, in podman rootless cases (even if the connection is rootful), `podman build` can't connect to Kafka and `podman build` doesn't support `--privileged` or `--user root`; therefore, the single-step `podman build` with `checkpoint.sh` is not an option.
 
 ## OpenShift
 

@@ -50,3 +50,5 @@ ENV WLP_LOGGING_CONSOLE_FORMAT=${CONSOLE_FORMAT}
 
 # This script will add the requested XML snippets, grow image to be fit-for-purpose and apply interim fixes
 RUN configure.sh
+
+USER root

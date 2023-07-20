@@ -34,11 +34,11 @@
    ```
 1. Run `reactive-service-b`:
    ```
-   podman run --privileged --rm --network kafka -p 9081:9081 --env "CRIU_EXTRA_ARGS=--tcp-close" -it localhost/reactive-service-b:latest
+   podman run --cap-add CHECKPOINT_RESTORE --cap-add SETPCAP --cap-add NET_ADMIN --security-opt seccomp=unconfined --rm --network kafka -p 9081:9081 --env "CRIU_EXTRA_ARGS=--tcp-close" -it localhost/reactive-service-b:latest
    ```
 1. Run `reactive-service-a`:
    ```
-   podman run --privileged --rm --network kafka -p 9080:9080 --env "CRIU_EXTRA_ARGS=--tcp-close" -it localhost/reactive-service-a:latest
+   podman run --cap-add CHECKPOINT_RESTORE --cap-add SETPCAP --cap-add NET_ADMIN --security-opt seccomp=unconfined --rm --network kafka -p 9080:9080 --env "CRIU_EXTRA_ARGS=--tcp-close" -it localhost/reactive-service-a:latest
    ```
 1. Every 30 seconds, it should be visible in respective container logs that `reactive-service-a` is creating a message and `reactive-service-b` is receiving it.
 1. A specific message may also be produced by accessing <http://localhost:9080/kafka/produce?price=999>

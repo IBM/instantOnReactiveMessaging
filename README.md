@@ -2,20 +2,6 @@
 
 ## Development
 
-1. If using `podman machine`:
-    1. Set your connection to the `root` connection:
-       ```
-       podman system connection default podman-machine-default-root
-       ```
-    1. If the machine has SELinux `virt_sandbox_use_netlink` disabled:
-       ```
-       podman machine ssh "getsebool virt_sandbox_use_netlink"
-       ```
-       Then, enable it:
-       ```
-       podman machine ssh "setsebool virt_sandbox_use_netlink 1"
-       ```
-       Note that this must be done after every time the podman machine restarts.
 1. Create Kafka container network if it doesn't exist:
    ```
    podman network create kafka
@@ -31,15 +17,15 @@
    ```
 1. Build:
    ```
-   mvn -Dimage.checkpoint.arguments="--network kafka --user root" clean deploy
+   mvn clean deploy
    ```
 1. Run `reactive-service-b`:
    ```
-   podman run --privileged --rm --network kafka -p 9081:9081 --env "CRIU_EXTRA_ARGS=--tcp-close" -it localhost/reactive-service-b:latest
+   podman run --rm --network kafka -p 9081:9081 -it localhost/reactive-service-b:latest
    ```
 1. Run `reactive-service-a`:
    ```
-   podman run --privileged --rm --network kafka -p 9080:9080 --env "CRIU_EXTRA_ARGS=--tcp-close" -it localhost/reactive-service-a:latest
+   podman run --rm --network kafka -p 9080:9080 -it localhost/reactive-service-a:latest
    ```
 1. Every 30 seconds, it should be visible in respective container logs that `reactive-service-a` is creating a message and `reactive-service-b` is receiving it.
 1. A specific message may also be produced by accessing <http://localhost:9080/kafka/produce?price=999>

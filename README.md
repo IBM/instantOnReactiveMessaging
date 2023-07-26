@@ -15,6 +15,7 @@
        ```
        podman machine ssh "setsebool virt_sandbox_use_netlink 1"
        ```
+       Note that this must be done after every time the podman machine restarts.
 1. Create Kafka container network if it doesn't exist:
    ```
    podman network create kafka

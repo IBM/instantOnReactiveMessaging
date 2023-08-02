@@ -6,6 +6,8 @@ A demonstration application that shows how to use MicroProfile Reactive Messagin
 * afterAppStart
 * noInstantOn
 
+Review the [differences](https://openliberty.io/docs/latest/instanton.html#beforeAppStart) between beforeAppStart and afterAppStart.
+
 Change to a branch with:
 
 ```

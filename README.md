@@ -6,6 +6,12 @@ A demonstration application that shows how to use MicroProfile Reactive Messagin
 * afterAppStart
 * noInstantOn
 
+Change to a branch with:
+
+```
+git checkout $BRANCH
+```
+
 ## Resources
 
 1. <https://developer.ibm.com/articles/develop-reactive-microservices-with-microprofile/>
